@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div *ngFor="let author of model" class="column">
+      <div class="card">
+        <button
+          *ngIf="!findInLocalStorage(author._id)"
+          class="btn btn-outline-primary"
+          (click)="AddFav(author)"
+        >
+          Add Favourite
+        </button>
+        <button
+          *ngIf="findInLocalStorage(author._id)"
+          class="btn btn-outline-danger"
+          (click)="RemoveFav(author._id)"
+        >
+          Remove Favourite
+        </button>
+        <h4>Name :{{ author.name }}</h4>
+        <h4>
+          Bio :{{
+            author.bio.length > 20
+              ? (author.bio | slice: 0:20) + "..."
+              : author.bio
+          }}
+        </h4>
+        <h4>
+          Link :{{
+            author.link.length > 20
+              ? (author.link | slice: 0:20) + "..."
+              : author.link
+          }}
+        </h4>
+      </div>
+    </div>
+  </div>
+  <br />
+  <h3 *ngIf="model.length == 0">No Favourite Author Found!!!</h3>
+  <ul class="pagination" *ngIf="model.length > 0 && path == 'list-item'">
+    <li class="page-item">
+      <a class="page-link" (click)="Previous()">Previous</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link">Page : {{ page }} </a>
+    </li>
+    <li class="page-item"><a class="page-link" (click)="Next()">Next</a></li>
+  </ul>
+</div>
+
+<!-- <ng-template pTemplate="header">      
+  </ng-template>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+      quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p> -->
